@@ -35,12 +35,15 @@ declareCounter beacon_blocks_proposed,
 
 logScope: topics = "beacval"
 
-proc saveValidatorKey*(keyName, key: string, conf: BeaconNodeConf) =
-  let validatorsDir = conf.validatorsDir
-  let outputFile = validatorsDir / keyName
-  createDir validatorsDir
-  writeFile(outputFile, key)
-  info "Imported validator key", file = outputFile
+# TODO: This procedure follows insecure scheme of creating directory without
+# any permissions and writing file without any permissions.
+
+# proc saveValidatorKey*(keyName, key: string, conf: BeaconNodeConf) =
+#   let validatorsDir = conf.validatorsDir
+#   let outputFile = validatorsDir / keyName
+#   createDir validatorsDir
+#   writeFile(outputFile, key)
+#   info "Imported validator key", file = outputFile
 
 proc checkValidatorInRegistry(state: BeaconState,
                               pubKey: ValidatorPubKey) =
