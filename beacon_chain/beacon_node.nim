@@ -938,6 +938,9 @@ proc start(node: BeaconNode) =
   if genesisTime.inFuture:
     notice "Waiting for genesis", genesisIn = genesisTime.offset
 
+  node.chainDag.withState(node.chainDag.tmpState, finalizedHead):
+    SSZ.saveFile("/tmp/latest-finalized.ssz", state)
+
   waitFor node.initializeNetworking()
   node.run()
 
